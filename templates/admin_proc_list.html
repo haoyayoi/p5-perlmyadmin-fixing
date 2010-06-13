@@ -1,0 +1,74 @@
+<%-- 
+
+   admin_proc_list.html : This template displays a process list for the selected table.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Process List</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Process List:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Below is a process list for the <font color="#C00000"><b><%db%></b></font> database.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="10%"><b>Process ID:</b></td>
+<td class="td_color_header" width="10%"><b>User:</b></td>
+<td class="td_color_header" width="15%"><b>Host:</b></td>
+<td class="td_color_header" width="15%"><b>Database:</b></td>
+<td class="td_color_header" width="10%"><b>Command:</b></td>
+<td class="td_color_header" width="10%"><b>Time:</b></td>
+<td class="td_color_header" width="10%"><b>State:</b></td>
+<td class="td_color_header" width="20%"><b>Info:</b></td>
+</tr>
+<%loop proc_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><%id%></td>
+<td><%user%></td>
+<td><%host%></td>
+<td><%db%></td>
+<td><%comm%></td>
+<td><%time%></td>
+<td><%if state eq 'NULL'%><font color="#C00000"><b><%state%></b></font><%else%><%state%><%endif%></td>
+<td><%info%></td>
+</tr>
+<%endloop%>
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

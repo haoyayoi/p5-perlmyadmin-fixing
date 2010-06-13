@@ -1,0 +1,125 @@
+<%-- 
+
+   admin_table_list.html : This template displays the table list for the selected database.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Table List</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function confirm_drop(tab) {
+    var ans = confirm("Are you sure you want to drop the " + tab + " table?");
+	if (! ans) {
+	    return false;
+	}
+	return true;
+}
+function confirm_empty(tab) {
+    var ans = confirm("Are you sure you want to empty the " + tab + " table?");
+	if (! ans) {
+	    return false;
+	}
+	return true;
+}
+</script>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Table List:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+
+<tr>
+<td valign="top">
+<br>
+Below is a list of tables in the <font color="#C00000"><b><%db%></b></font> database. There <%if tables != '1'%>are<%else%>is<%endif%> currently <font color="#C00000"><b><%tables%></b></font> table<%unless tables == '1'%>s<%endif%> in this database.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="33%"><b>Database Size (bytes):</b></td>
+<td class="td_color_header" width="33%"><b>Database Size (kilobytes):</b></td>
+<td class="td_color_header"><b>Database Size (megabytes):</b></td>
+</tr>
+<tr>
+<td bgcolor="<%even%>" width="30%"><%size_b%></td>
+<td bgcolor="<%even%>" width="12%"><%size_kb%></td>
+<td bgcolor="<%even%>"><%size_mb%></td>
+</tr>
+</table>
+<br><br>
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="30%"><b>Table Name:</b></td>
+<td class="td_color_header" width="12%"><b>Rows:</b></td>
+<td class="td_color_header"><b>Action:</b></td>
+</tr>
+<%loop table_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><%table%></td>
+<td><%rows%></td>
+<td>
+
+<%if rows%>
+<a href="myadmin.cgi?do=browse_table&db=<%db%>&table=<%table%>">Browse</a> &#149;
+<%else%>
+Browse &#149;
+<%endif%>
+
+<%if rows%>
+<a href="myadmin.cgi?do=search_table&db=<%db%>&table=<%table%>">Search</a> &#149;
+<%else%> 
+Search &#149;
+<%endif%>
+
+<a href="myadmin.cgi?do=attr_table&db=<%db%>&table=<%table%>">Colums</a> &#149;
+<a href="myadmin.cgi?do=insert_table&db=<%db%>&table=<%table%>">Insert</a> &#149;
+
+<%if is_323%>
+<a href="myadmin.cgi?do=stats_table&db=<%db%>&table=<%table%>">Stats</a> &#149;
+<%endif%>
+
+<%if rows%>
+<a href="myadmin.cgi?do=empty_table&db=<%db%>&table=<%table%>" onclick="return confirm_empty('<%table%>');">Empty</a> &#149;
+<%else%>
+Empty &#149;
+<%endif%> 
+
+<a href="myadmin.cgi?do=drop_table&db=<%db%>&table=<%table%>" onclick="return confirm_drop('<%table%>');">Drop</a>
+</td>
+</tr>
+<%endloop%>
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

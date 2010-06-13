@@ -1,0 +1,67 @@
+<%-- 
+
+   admin_query_table.html : Shows the output of a query.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Query Results!</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Query Results:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+&nbsp;Executed Query: <b><%query%></b> <%if hits%>returned <font color="#C00000"><b><%hits%></b></font> row<%unless hits == '1'%>s<%endif%>!<%endif%>
+
+<%ifnot hits%>
+<br><br>
+&nbsp;Your search returned <font color="#C00000"><b>0</b></font> rows. This means the table is empty.
+<%endif%>
+
+<%if toolbar%>
+<br><br>
+&nbsp;<b>Page:</b> <%toolbar%>
+<%endif%>
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+<table cellpadding="5">
+
+<%output%>
+
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

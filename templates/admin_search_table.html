@@ -1,0 +1,98 @@
+<%-- 
+
+   admin_search_table.html : Show the search page.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Search Table</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Search Table:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+You may perform a search on the <font color="#C00000"><b><%table%></b></font> using the form below. If no columns are selected all columns will be returned.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<form action="myadmin.cgi" method="POST">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<input type="hidden" name="do" value="search_table_do">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="40%"><b>Action:</b></td>
+<td class="td_color_header" width="60%"><b>Value:</b></td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td valign="top"><font color="#C00000"><b>SELECT</b></font></td>
+<td>
+
+<table width="100%">
+<tr>
+<%loop col_loop%>
+
+<%if loop_iteration % '2' and loop_iteration > '1'%>
+</tr><tr>
+<%endif%>
+
+<td><input type="checkbox" name="col" value="<%col%>"> <%col%> (<%type%>)</td>
+<%endloop%>
+
+</tr>
+</table>
+
+</td>
+</tr>
+<tr bgcolor="<%even%>">
+<td><font color="#C00000"><b>FROM</b></font></td><td><b><%table%></b></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td valign="top">
+<font color="#C00000"><b>WHERE</b></font>
+<br><br><small>eg. <%eg%> = 'Foo' LIMIT 10</small></td><td><textarea name="where" rows="8" cols="55"></textarea></td>
+</tr>
+
+<tr>
+<td valign="top">&nbsp;</td><td><input type="submit" value="Run Query"></td>
+</tr>
+</table>
+
+</form>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

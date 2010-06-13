@@ -1,0 +1,198 @@
+<%-- 
+
+   admin_import_table.html : Show the template for importing a table from a delimited file.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Import Table</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function update_fields() {
+    if (document.imp.location2.options[document.imp.location2.selectedIndex].text) {
+	    document.imp.location1.focus();
+		document.imp.location1.value = "";
+		document.imp.location1.disabled = true;
+		document.imp.location2.focus();
+	}
+	else {
+		document.imp.location1.disabled = false;
+	    document.imp.location1.focus();
+	}
+}
+function do_select() {
+    if (document.imp.location1.value == "") 
+		document.imp.location2.disabled = false;
+    else 
+    document.imp.location2.disabled = true;
+}
+function which_boxes() {
+    if (document.imp.fields.options[document.imp.fields.selectedIndex].text == "Selected Fields") do_boxes('E');
+	else do_boxes('D');
+}
+function do_boxes(action) {
+    var len = document.imp.length;
+	var i   = 0;
+
+// Loop form elements looking for check boxes.
+    for (i = 0; i < len; i++) {
+	     if (document.imp.elements[i].type == "checkbox" && document.imp.elements[i].name != "ow" && document.imp.elements[i].name != "er") {
+		     if (action == "E") {
+		         document.imp.elements[i].disabled = false;
+			 }
+			 else if (action == "D") {
+		         document.imp.elements[i].checked  = false;
+		         document.imp.elements[i].disabled = true;
+			 }
+		 }
+    }
+}
+</script>
+
+</HEAD>
+
+<BODY onload="do_boxes('D');">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Import Table:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+You may import into the <font color="#C00000"><b><%table%></b></font> table by selecting the appropriate options below.
+<br><br>
+
+<form name="imp" action="myadmin.cgi" method="POST">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<input type="hidden" name="do" value="import_table_do">
+
+<table width="100%" cellpadding="5">
+<tr bgcolor="<%even%>">
+<td width="25%"><b>Import File:</b></td>
+<td><input type="text" name="location1" class="text" size="55" onkeyup="do_select();">
+</select>
+</td>
+</tr>
+
+<%if exps%>
+<tr bgcolor="<%odd%>">
+<td><b>-OR- Choose:</b></td>
+<td>
+<select name="location2" onchange="update_fields();">
+<option></option>
+<%loop loop%>
+<option><%exp%></option>
+<%endloop%>
+</select>
+</td>
+</tr>
+<%endif%>
+
+<tr bgcolor="<%even%>">
+<td valign="top"><b>Fields:</b></td>
+<td>
+<select name="fields" onchange="which_boxes();">
+<option value="1">All Fields</option>
+<option value="">Selected Fields</option>
+</select> 
+<br>If your import file only contains certain fields, you should select "Selected Fields" from the list above and then tick the appropriate boxes below. This will ensure that the data is inserted into the correct columns.
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td valign="top"><b>Select Fields:</b></td>
+<td>
+
+<table width="100%">
+<tr>
+<%loop c_loop%>
+
+<%if loop_iteration % '2' and loop_iteration > '1'%>
+</tr><tr>
+<%endif%>
+<td>
+<input type="checkbox" name="field" value="<%field%>"> <%field%><br>
+<%endloop%>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Field Seperator:</b></td>
+<td>
+<input type="text" name="fsep" size="5" value="|"> This must be the field seperator used in the file to be imported.
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>Record Seperator:</b></td>
+<td>
+<input type="text" name="rsep" size="5" value="\n"> This must be the record seperator used in the file to be imported.
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Escape Character:</b></td>
+<td>
+<input type="text" name="esc" size="5" value="\">
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>Skip Lines:</b></td>
+<td>
+<input type="text" name="skip" size="5" value="0"> You may skip the first x lines of the file if desired.
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Show Errors:</b></td>
+<td>
+<input type="checkbox" name="er" value="1"> Show errors (unless selecting overwrite below).
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>Overwite:</b></td>
+<td>
+<input type="checkbox" name="ow" value="REPLACE"> Overwrite existing data?
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" value="Import Data"></td>
+</tr>
+
+</table>
+
+</form>
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

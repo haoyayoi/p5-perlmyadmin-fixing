@@ -1,0 +1,84 @@
+<%-- 
+
+   admin_db_list.html : This template displays the main database list.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Database List</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function confirm_drop(db) {
+    var ans = confirm("Are you sure you want to drop the " + db + " database?");
+	if (! ans) {
+	    return false;
+	}
+	return true;
+}
+</script>
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Database List:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Below is a list of the databases that currently exist for this host. There are currently <font color="#C00000"><b><%dbs%></b></font> databases.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="100%"><b>Server:</b></td>
+</tr>
+<tr>
+<td bgcolor="<%even%>" width="100%">MySQL <font color="#C00000"><b><%ver%></b></font> running on <font color="#C00000"><b><%host%></b></font></td>
+</tr>
+</table>
+<br><br>
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="60%"><b>Database Name:</b></td>
+<td class="td_color_header"><b>Action:</b></td>
+</tr>
+<%loop db_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><a href="myadmin.cgi?do=load_db&db=<%db%>"><%db%></a></td>
+<td>
+<a href="myadmin.cgi?do=load_db&db=<%db%>">List Tables</a> &#149;
+<a href="myadmin.cgi?do=process_db&db=<%db%>">Process List</a> &#149;
+<a href="myadmin.cgi?do=drop_db&db=<%db%>" onclick="return confirm_drop('<%db%>');">Drop</a>
+</td>
+</tr>
+<%endloop%>
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

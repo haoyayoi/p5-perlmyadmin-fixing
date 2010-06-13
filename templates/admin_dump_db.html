@@ -1,0 +1,205 @@
+<%-- 
+
+   admin_dump_db.html : Show the template for dumping a database.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Dump Database</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function is_file() {
+    if (document.dump.location.options[document.dump.location.selectedIndex].text == "To Screen") {
+		document.dump.path.value = "";
+		document.dump.path.disabled = true;
+		return false;
+	}
+	else {
+		document.dump.path.disabled = false;
+		document.dump.path.value = "<%cwd%>/<%db%>-<%date%>.txt";
+	}
+}
+function which_boxes() {
+    if (document.dump.tables.options[document.dump.tables.selectedIndex].text == "Selected Tables") do_boxes('E');
+	else do_boxes('D');
+}
+function do_boxes(action) {
+    var len = document.dump.length;
+	var i   = 0;
+
+// Loop form elements looking for check boxes.
+    for (i = 0; i < len; i++) {
+	     if (document.dump.elements[i].type == "checkbox") {
+		     if (action == "E") {
+		         document.dump.elements[i].disabled = false;
+			 }
+			 else if (action == "D") {
+		         document.dump.elements[i].checked  = false;
+		         document.dump.elements[i].disabled = true;
+			 }
+		 }
+    }
+}
+function disable_drop() {
+    if (document.dump.create.options[document.dump.create.selectedIndex].text == "No")
+	    document.dump.drop.disabled = true;
+   else document.dump.drop.disabled = false;
+}
+function disable_insert() {
+    if (document.dump.insert.options[document.dump.insert.selectedIndex].text == "No") {
+	    document.dump.complete.disabled = true;
+	    document.dump.delayed.disabled = true;
+	    document.dump.multi.disabled = true;
+    }
+    else {
+	    document.dump.complete.disabled = false;
+	    document.dump.delayed.disabled = false;
+	    document.dump.multi.disabled = false;
+	}
+}
+</script>
+
+</HEAD>
+
+<BODY onload="do_boxes('D');">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Dump Database:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Please select the appropriate options below before dumping the <font color="#C00000"><b><%db%></b></font> database.
+<br><br>
+
+<form name="dump" action="myadmin.cgi" method="POST">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="do" value="dump_db_do">
+
+<table width="100%" cellpadding="5">
+<tr bgcolor="<%even%>">
+<td><b>Dump:</b></td>
+<td><select name="location" onchange="return is_file();">
+<option value="1">To Screen</option>
+<option value="" selected>To File</option>
+</select>
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="25%"><b>Dump Path:</b></td>
+<td><input type="text" name="path" size="80" value="<%cwd%>/<%db%>-<%date%>.txt" class="text"></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Dump Tables:</b></td>
+<td>
+<select name="tables" onchange="which_boxes();">
+<option value="1">All Tables</option>
+<option value="">Selected Tables</option>
+</select>
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td valign="top"><b>Select Tables:</b></td>
+<td>
+<%loop tab_loop%>
+<input type="checkbox" name="table" value="<%table%>"> <%table%><br>
+<%endloop%>
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>CREATE Statement:</b></td>
+<td>
+<select name="create" onchange="disable_drop();">
+<option value="1">Yes</option>
+<option value="">No</option>
+</select> Should the dump file include CREATE TABLE commands?
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>DROP Statement:</b></td>
+<td>
+<select name="drop">
+<option value="1">Yes</option>
+<option value="">No</option>
+</select> Should the dump file include DROP TABLE IF EXISTS commands?
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>INSERT Statement:</b></td>
+<td>
+<select name="insert" onchange="disable_insert();">
+<option value="1">Yes</option>
+<option value="">No</option>
+</select> Should the dump file include INSERT commands?
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>Complete Inserts:</b></td>
+<td>
+<select name="complete">
+<option value="1">Yes</option>
+<option value="" selected>No</option>
+</select> Use complete inserts (include column names).
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Delayed Inserts:</b></td>
+<td>
+<select name="delayed">
+<option value="1">Yes</option>
+<option value="" selected>No</option>
+</select> Use delayed inserts.
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>Multiple-Row Inserts:</b></td>
+<td>
+<select name="multi">
+<option value="1">Yes</option>
+<option value="" selected>No</option>
+</select> Use multiple-row inserts.
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" value="Dump Database"></td>
+</tr>
+
+</table>
+
+</form>
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

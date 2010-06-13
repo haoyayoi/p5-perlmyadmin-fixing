@@ -1,0 +1,99 @@
+<%-- 
+
+   admin_attr_table.html : This template displays the colums within a table.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Column List</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Column List:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+
+<tr>
+<td valign="top">
+<br>
+Below is a list of columns in the <font color="#C00000"><b><%table%></b></font> table in the <font color="#C00000"><b><%db%></b></font> database. There <%if cols != '1'%>are<%else%>is<%endif%> currently <font color="#C00000"><b><%cols%></b></font> column<%unless cols == '1'%>s<%endif%> in this table.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" height="75%">
+
+<table width="100%" cellpadding="5">
+<tr>
+<td class="td_color_header" width="20%"><b>Column:</b></td>
+<td class="td_color_header" width="20%"><b>Type:</b></td>
+<td class="td_color_header" width="5%"><b>Null:</b></td>
+<td class="td_color_header" width="5%"><b>Key:</b></td>
+<td class="td_color_header" width="20%"><b>Default:</b></td>
+<td class="td_color_header" width="20%"><b>Extra:</b></td>
+<td class="td_color_header" width="10%"><b>Action:</b></td>
+</tr>
+<%loop col_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><a href="myadmin.cgi?do=alter_col&col=<%col%>&table=<%table%>&db=<%db%>"><%col%></a></td>
+<td><%type%></td>
+<td><%if null%><font color="green"><b>Yes</b></font><%else%><font color="#C00000"><b>No</b></font><%endif%></td>
+<td><%if key%><%key%><%else%>-<%endif%></td>
+<td><%if default%><%default%><%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+<td><%if extra%><%extra%><%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+<td><a href="myadmin.cgi?do=drop_col&col=<%col%>&table=<%table%>&db=<%db%>">Drop</a></td>
+</tr>
+<%endloop%>
+</table>
+
+<br><br>
+Below is a list of keys for this table.<br><br><br>
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="17%"><b>Key:</b></td>
+<td class="td_color_header" width="17%"><b>Null:</b></td>
+<td class="td_color_header" width="17%"><b>Column:</b></td>
+<td class="td_color_header" width="17%"><b>Unique:</b></td>
+<td class="td_color_header" width="17%"><b>Sort:</b></td>
+<td class="td_color_header" width="15%"><b>Action:</b></td>
+</tr>
+<%loop key_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><%key%></td>
+<td><%if null%><font color="green"><b>Yes</b></font><%else%><font color="#C00000"><b>No</b></font><%endif%></td>
+<td><%column%></td>
+<td><%if unique == '0'%><font color="green"><b>Yes</b></font><%else%><font color="#C00000"><b>No</b></font><%endif%></td>
+<td><%if sort eq 'A'%>Ascending<%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+<td><a href="myadmin.cgi?do=drop_index&key=<%key%>&table=<%table%>&db=<%db%>">Drop</a></td>
+</tr>
+<%endloop%>
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

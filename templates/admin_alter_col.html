@@ -1,0 +1,187 @@
+<%-- 
+
+   admin_alter_col.html : Alter a specific column.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Alter Column</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function check(me) {
+   if (me.options[0].text.match(/^primary|index|unique$/)) {
+       me.options[0].text = me.options[0].text.toUpperCase(); 
+	   me.options[0].selected = true;
+   }
+   else { 
+       me.options[0].text = me.options[0].text.toLowerCase();
+	   me.options[0].selected = false;
+   }
+}
+</script>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Column Specifications:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+You may modify the <font color="#C00000"><b><%field%></b></font> column using the form below.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<form name="create_cols" action="myadmin.cgi" method="POST">
+<input type="hidden" name="do" value="alter_col_do">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<input type="hidden" name="col" value="<%field%>">
+
+<table width="100%" align="center" cellpadding="5">
+
+<tr bgcolor="<%even%>">
+<td width="8%"><b>Field:</b></td>
+<td><input type="text" class="text" name="field" size="40" value="<%field%>"></td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="15%"><b>Type:</b></td>
+<td>
+<select name="type">
+	<option <%if type eq 'varchar'%>selected<%endif%>>VARCHAR</option>
+	<option <%if type eq 'text'%>selected<%endif%>>TEXT</option>
+	<option <%if type eq 'int'%>selected<%endif%>>INT</option>
+	<option <%if type eq 'enum'%>selected<%endif%>>ENUM</option>
+	<option <%if type eq 'char'%>selected<%endif%>>CHAR</option>
+	<option <%if type eq 'set'%>selected<%endif%>>SET</option>
+	<option <%if type eq 'tinyblob'%>selected<%endif%>>TINYBLOB</option>
+	<option <%if type eq 'tinytext'%>selected<%endif%>>TINYTEXT</option>
+	<option <%if type eq 'blob'%>selected<%endif%>>BLOB</option>
+	<option <%if type eq 'mediumblob'%>selected<%endif%>>MEDIUMBLOB</option>
+	<option <%if type eq 'mediumtext'%>selected<%endif%>>MEDIUMTEXT</option>
+	<option <%if type eq 'longblob'%>selected<%endif%>>LONGBLOB</option>
+	<option <%if type eq 'longtext'%>selected<%endif%>>LONGTEXT</option>
+	<option <%if type eq 'tinyint'%>selected<%endif%>>TINYINT</option>
+	<option <%if type eq 'smallint'%>selected<%endif%>>SMALLINT</option>
+	<option <%if type eq 'mediumint'%>selected<%endif%>>MEDIUMINT</option>
+	<option <%if type eq 'bigint'%>selected<%endif%>>BIGINT</option>
+	<option <%if type eq 'float'%>selected<%endif%>>FLOAT</option>
+	<option <%if type eq 'double'%>selected<%endif%>>DOUBLE</option>
+	<option <%if type eq 'decimal'%>selected<%endif%>>DECIMAL</option>
+	<option <%if type eq 'date'%>selected<%endif%>>DATE</option>
+	<option <%if type eq 'datetime'%>selected<%endif%>>DATETIME</option>
+	<option <%if type eq 'timestamp'%>selected<%endif%>>TIMESTAMP</option>
+	<option <%if type eq 'time'%>selected<%endif%>>TIME</option>
+	<option <%if type eq 'year'%>selected<%endif%>>YEAR</option>
+   </select></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td width="8%"><b>Length/Set:</b></td>
+<td><input type="text" class="text" name="set" size="60" value="<%if set%><%set%><%endif%>"></td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="26%"><b>Attributes:</b></td>
+<td>
+<select name="attributes">
+	<option></option>
+	<option <%if attr eq 'binary'%>selected<%endif%>>BINARY</option>
+	<option <%if attr eq 'unsigned'%>selected<%endif%>>UNSIGNED</option>
+	<option <%if attr eq 'zerofill'%>selected<%endif%>>UNSIGNED ZEROFILL</option>
+   </select>
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td width="10%"><b>Null:</b></td>
+<td>
+<select name="null">
+	<option <%ifnot null%>selected<%endif%>>NOT NULL</option>
+	<option <%if null%>selected<%endif%>>NULL</option>
+   </select> 
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="8%"><b>Default:</b></td>
+<td><input type="text" class="text" name="default" size="40" value="<%if default%><%default%><%endif%>"></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td width="25%"><b>Extra:</b></td>
+<td>
+<select name="extra">
+	<option></option>
+	<option <%if extra%>selected<%endif%>>AUTO_INCREMENT</option>
+   </select>
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="25%"><b>Primary:</b></td>
+<td>
+<%if key eq 'PRI'%><a href="myadmin.cgi?do=drop_index&key=PRIMARY&table=<%table%>&db=<%db%>">Drop</a>
+<%else%>
+<a href="myadmin.cgi?do=pri_key_add&table=<%table%>&db=<%db%>&col=<%field%>">Add</a>
+<%endif%>
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td width="25%"><b>Index:</b></td>
+<td>
+<a href="myadmin.cgi?do=ind_key_add&table=<%table%>&db=<%db%>&col=<%field%>">Add</a>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="25%"><b>Unique:</b></td>
+<td>
+<%if key eq 'UNI'%><a href="myadmin.cgi?do=uni_key_drop&table=<%table%>&db=<%db%>&col=<%field%>">Drop</a>
+<%else%>
+<a href="myadmin.cgi?do=uni_key_add&table=<%table%>&db=<%db%>&col=<%field%>">Add</a>
+<%endif%>
+</td>
+</tr>
+
+<%endloop%>
+
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" value="Alter Column"></td>
+</tr>
+</table>
+
+</form>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

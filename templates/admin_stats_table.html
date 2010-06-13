@@ -1,0 +1,120 @@
+<%-- 
+
+   admin_stats_table.html : This template displays table statistics.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Table Statistics</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Table Statistics:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Below are some statistics for the <font color="#C00000"><b><%table%></b></font> table.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="40%"><b>Statistic:</b></td>
+<td class="td_color_header"><b>Value:</b></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td>Table Name</td>
+<td><%table%></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Table Type</td>
+<td><%type%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Row Format</td>
+<td><%format%></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Number of Rows</td>
+<td><%rows%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Average Row Length</td>
+<td><%arl%></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Data Length</td>
+<td><%datlen%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Max Data Length</td>
+<td><%maxdl%> bytes or <%maxdlg%> gigabytes</td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Index Length</td>
+<td><%index%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Data Free</td>
+<td><%free%></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Auto Increment</td>
+<td><%if ai%><font color="green"><b>Yes</b></font><%else%><font color="#C00000"><b>No</b></font><%endif%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Create Time</td>
+<td><%ctime%></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Update Time</td>
+<td><%if utime%><%utime%><%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Check Time</td>
+<td><%if chtime%><%chtime%><%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td>Create Options</td>
+<td><%if opts%><%opts%><%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+</tr>
+<tr bgcolor="<%even%>">
+<td>Comments</td>
+<td><%if comm%><%comm%><%else%><font color="#C00000"><b>None</b></font><%endif%></td>
+</tr>
+<%endloop%>
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

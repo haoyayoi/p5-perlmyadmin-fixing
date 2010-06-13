@@ -1,0 +1,5 @@
+{
+   script => 'PerlMyAdmin v1.0.0',
+   odd    => '#E3E7E8',
+   even   => '#EFEFEF'
+}

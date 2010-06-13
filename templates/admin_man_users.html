@@ -1,0 +1,114 @@
+<%-- 
+
+   admin_man_users.html : User management options.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - User Management</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function make_sure() {
+    var ans = confirm("Are you sure you want to perform this action?");
+	if (! ans) return false;
+	else 
+	return true;
+}
+</script>
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> User List:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Below is a list of users for this host. You may edit these users if you have GRANT priveleges.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<form action="myadmin.cgi" method="POST">
+<input type="hidden" name="do" value="grants_users">
+<input type="hidden" name="db" value="mysql">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" colspan="5"><b>Grants:</b>
+</td>
+</tr>
+<tr bgcolor="<%odd%>">
+<td width="25%"><b>SHOW GRANTS FOR</b></td>
+<td width="20%"><select name="user" style="font-size:10px;">
+<%loop user_loop%>
+<option><%user%></option>
+<%endloop%>
+</select>
+</td>
+<td width="10%"><b>@</b></td>
+<td><b><%host%></b></b></td>
+<td><input type="submit" value="Go" style="font-size:10px;"></td>
+</td>
+</tr>
+<%if grants%>
+<tr bgcolor="<%even%>">
+<td colspan="5">
+<%grants%>
+</td>
+</tr>
+<%endif%>
+</table>
+
+</form>
+
+<br>
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="30%"><b>Username:</b></td>
+<td class="td_color_header" width="20%"><b>Host:</b></td>
+<td class="td_color_header"><b>Remove Priveleges:</b></td>
+</tr>
+
+<%loop user_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><%user%></td>
+<td><%host%></td>
+<td>
+<a href="myadmin.cgi?do=drop_all_priv&user=<%user%>&db=<%db%>" onclick="return make_sure();">All</a> &#149;
+<a href="myadmin.cgi?do=drop_table_priv&user=<%user%>&db=<%db%>" onclick="return make_sure();">Table</a> &#149;
+<a href="myadmin.cgi?do=drop_col_priv&user=<%user%>&db=<%db%>" onclick="return make_sure();">Column</a> &#149;
+<a href="myadmin.cgi?do=drop_user&user=<%user%>&db=<%db%>" onclick="return make_sure();">Remove User</a>
+</td>
+</tr>
+<%endloop%>
+
+</table>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

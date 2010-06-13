@@ -1,0 +1,43 @@
+<style type="text/css" media="screen">
+BODY {
+   font-family : verdana, tahoma, arial;
+   font-size   : 12px;
+   padding-top : 30px;
+   background  : #EFEFEF;
+}
+TD {
+   font-family : verdana, tahoma, arial;
+   font-size   : 12px;
+}
+TABLE.main_table {
+   width       : 90%;
+   padding     : 2px;
+   background  : #FFFFFF;
+   border      : 1px solid #DDDDDD;
+   height      : 90%;
+}
+TD.td_header {
+   padding     : 3px;
+   background  : #EFEFEF;
+   border      : 1px dotted #DDDDDD;
+}
+TD.td_color_header {
+   padding     : 3px;
+   background  : #E3EADE;
+   border      : 1px dotted #DDDDDD;
+}
+TD.td_odd {
+   background  : <%odd%>;
+}
+TD.td_even {
+   background  : <%even%>;
+}
+A {
+   text-decoration: none;
+   color          : blue;
+}
+INPUT.text {
+   border-color: #666666;
+   border-width: 1px;
+}
+</style>

@@ -1,0 +1,91 @@
+<%-- 
+
+   admin_create_table.html : This template displays the template used to create a new table.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Create Table</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function verify() {
+    if (! document.create_table.table_name.value.match(/^\w+$/)) {
+	    alert("Table names many only contain a-z, A-Z, 0-9 and _");
+		return false;
+	}
+    if (! document.create_table.table_cols.value.match(/^\d+$/)) {
+	    alert("The columns field may only contain digits.");
+		return false;
+	}
+}
+</script>
+
+</HEAD>
+
+<BODY onload="document.create_table.table_name.focus();">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Table Creation:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td height="20%" valign="top"><br>
+Please fill in the form below to begin the process of creating a new table. Table names may only contain alphanumerics and underscores. The columns field accepts digits only and specifies the number of columns the table will have.
+</td>
+</tr>
+
+<!-- Creation Form -->
+<tr>
+<td height="75%" align="center" valign="top">
+
+<form name="create_table" action="myadmin.cgi" method="POST" onsubmit="return verify();">
+<input type="hidden" name="do" value="create_table_cols">
+<input type="hidden" name="db" value="<%db%>">
+<table width="50%" cellpadding="5">
+<tr>
+<td colspan="2" class="td_color_header"><b>Create Table:</b></td>
+</tr>
+<tr>
+<td width="25%"><b>Table Name:</b></td>
+<td><input type="text" size="40" name="table_name" class="text" value="<%if table_name%><%table_name%><%endif%>"></td>
+</tr>
+<tr>
+<td><b>Columns:</b></td>
+<td><input type="text" size="40" name="table_cols" class="text" value="<%if table_cols%><%table_cols%><%endif%>"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" class="button" value="Create"></td>
+</tr>
+</table>
+
+</form>
+<br>
+<%if error%>
+<font color="#C00000"><b><%error%></b></font>
+<%endif%>
+
+</td>
+</tr>
+<!-- End Creation Form -->
+
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

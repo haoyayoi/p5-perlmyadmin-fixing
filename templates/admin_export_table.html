@@ -1,0 +1,162 @@
+<%-- 
+
+   admin_export_table.html : Show the template for exporting a table into a delimited file.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Export Table</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function is_file() {
+    if (document.dump.location.options[document.dump.location.selectedIndex].text == "To Screen") {
+		document.dump.path.value = "";
+		document.dump.path.disabled = true;
+		return false;
+	}
+	else {
+		document.dump.path.disabled = false;
+		document.dump.path.value = "<%cwd%>/<%db%>-<%date%>.txt";
+	}
+}
+function which_boxes() {
+    if (document.dump.fields.options[document.dump.fields.selectedIndex].text == "Selected Fields") do_boxes('E');
+	else do_boxes('D');
+}
+function do_boxes(action) {
+    var len = document.dump.length;
+	var i   = 0;
+
+// Loop form elements looking for check boxes.
+    for (i = 0; i < len; i++) {
+	     if (document.dump.elements[i].type == "checkbox") {
+		     if (action == "E") {
+		         document.dump.elements[i].disabled = false;
+			 }
+			 else if (action == "D") {
+		         document.dump.elements[i].checked  = false;
+		         document.dump.elements[i].disabled = true;
+			 }
+		 }
+    }
+}
+</script>
+
+</HEAD>
+
+<BODY onload="do_boxes('D');">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Export Table:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+You may export the <font color="#C00000"><b><%table%></b></font> table by selecting the appropriate options below.
+<br><br>
+
+<form name="dump" action="myadmin.cgi" method="POST">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<input type="hidden" name="do" value="export_table_do">
+
+<table width="100%" cellpadding="5">
+<tr bgcolor="<%even%>">
+<td><b>Export:</b></td>
+<td><select name="location" onchange="return is_file();">
+<option value="1">To Screen</option>
+<option value="" selected>To File</option>
+</select>
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="25%"><b>Export Path:</b></td>
+<td><input type="text" name="path" size="80" value="<%cwd%>/exports/<%db%>-<%date%>.txt" class="text"></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Fields:</b></td>
+<td>
+<select name="fields" onchange="which_boxes();">
+<option value="1">All Fields</option>
+<option value="">Selected Fields</option>
+</select>
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td valign="top"><b>Select Fields:</b></td>
+<td>
+
+<table width="100%">
+<tr>
+<%loop loop%>
+
+<%if loop_iteration % '2' and loop_iteration > '1'%>
+</tr><tr>
+<%endif%>
+<td>
+<input type="checkbox" name="field" value="<%field%>"> <%field%><br>
+<%endloop%>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Field Seperator:</b></td>
+<td>
+<input type="text" name="fsep" size="5" value="|">
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td><b>Record Seperator:</b></td>
+<td>
+<input type="text" name="rsep" size="5" value="\n">
+</td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td><b>Escape Character:</b></td>
+<td>
+<input type="text" name="esc" size="5" value="\">
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" value="Export Table"></td>
+</tr>
+
+</table>
+
+</form>
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

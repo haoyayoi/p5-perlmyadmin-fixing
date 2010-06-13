@@ -1,0 +1,104 @@
+<%-- 
+
+   admin_login.html : This template displays the login page.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Login!</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function verify() {
+
+ var me = document.db_login;
+    var error;
+
+// Verify the form fields.
+	if (me.host.value == "") {
+	    alert("Please enter a host!");
+		me.host.focus();
+		return false;
+    }
+	if (me.user.value == "") {
+	    alert("Please enter a username!");
+		me.user.focus();
+		return false;
+    }
+// Don't check passwords because some (silly) people don't use them.
+}
+</script>
+
+</HEAD>
+
+<BODY onload="document.db_login.host.focus();">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Login:</b></td>
+</tr>
+<tr>
+<td height="15%" valign="top">
+Welcome to the login page of <font color="#C00000"><b><%script%></b></font>!
+<br><br>
+By entering your mysql login details below you may begin managing your database(s) via your web browser.
+</td>
+</tr>
+
+<!-- Login Form -->
+<tr>
+<td height="75%" align="center" valign="top">
+
+<form name="db_login" action="myadmin.cgi" method="POST" onsubmit="return verify();">
+<input type="hidden" name="do" value="login">
+
+<table width="50%" cellpadding="5">
+<tr>
+<td colspan="2" class="td_color_header"><b>Login:</b></td>
+</tr>
+<tr>
+<td width="25%"><b>Host:</b></td>
+<td><input type="text" size="40" name="host" class="text" value="<%if host%><%host%><%elsif my_host%><%my_host%><%else%>localhost<%endif%>"></td>
+</tr>
+<tr>
+<td><b>User:</b></td>
+<td><input type="text" size="40" name="user" class="text" value="<%if user%><%user%><%elsif my_user%><%my_user%><%endif%>"></td>
+</tr>
+<tr>
+<td><b>Pass:</b></td>
+<td><input type="password" size="40" name="pass" class="text"></td>
+</tr>
+<tr>
+<td><b>Save:</b></td>
+<td><input type="checkbox" name="save"> (save host and user in a cookie)</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" class="button" value="Login"></td>
+</tr>
+</table>
+
+</form>
+<br>
+<%if error%>
+<font color="#C00000"><b><%error%></b></font>
+<%endif%>
+
+</td>
+</tr>
+<!-- End Login Form -->
+
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

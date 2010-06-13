@@ -1,0 +1,52 @@
+<%-- 
+
+   admin_dump_done.html : Displays the dump success page.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Dump Complete</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Dump Complete:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td height="100%" valign="top">
+<br>
+Thankyou for creating a database dump. The dump has been generated at the following location:<br><br>
+
+<font color="green"><b><%path%></b></font><br><br>
+
+The dump file is <font color="#C00000"><b><%size%></b></font> bytes in total. This is equvalent to <font color="#C00000"><b><%kb%></b></font> kilobytes or <font color="#C00000"><b><%mb%></b></font> megabytes!<br><br>
+
+You may now continue by selecting one of the menu options at the top of the page.
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

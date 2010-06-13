@@ -1,0 +1,84 @@
+<%-- 
+
+   admin_create_db.html : This template displays the template used to create a new database.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Create Database</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function verify() {
+    if (! document.create_db.dbse.value.match(/^\w+$/)) {
+	    alert("Database names many only contain a-z, A-Z, 0-9 and _");
+		return false;
+	}
+}
+</script>
+
+</HEAD>
+
+<BODY onload="document.create_db.dbse.focus();">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Database Creation:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td height="20%" valign="top"><br>
+Please fill in the form below to create a new database. Database names may only contain alphanumerics and underscores.
+</td>
+</tr>
+
+<!-- Creation Form -->
+<tr>
+<td height="75%" align="middle" valign="top">
+
+<form name="create_db" action="myadmin.cgi" method="POST" onsubmit="return verify();">
+<input type="hidden" name="do" value="create_db_do">
+
+<table width="50%" cellpadding="5">
+<tr>
+<td colspan="2" class="td_color_header"><b>Create Database:</b></td>
+</tr>
+<tr>
+<td width="25%"><b>Database:</b></td>
+<td><input type="text" size="40" name="dbse" class="text" value=""></td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" class="button" value="Create"></td>
+</tr>
+</table>
+
+</form>
+<br>
+<%if error%>
+<font color="#C00000"><b><%error%></b></font>
+<%endif%>
+
+</td>
+</tr>
+<!-- End Creation Form -->
+
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

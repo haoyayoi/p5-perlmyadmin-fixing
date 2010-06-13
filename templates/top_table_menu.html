@@ -1,0 +1,28 @@
+<%--
+   top_table_menu.html : This file is an include used in all table related templates.
+--%>
+
+<tr>
+<td valign="center" class="td_color_header" height="10px" width="100%">
+<b>Tables:</b> 
+
+<a href="myadmin.cgi?do=load_db&db=<%db%>&table=1"><b>List</b></a> &#149;
+<a href="myadmin.cgi?do=create_table&db=<%db%>&table=1"><b>Create</b></a> &#149;
+<a href="myadmin.cgi?do=rename_table&db=<%db%>&table=<%if table%><%table%><%endif%>"><b>Rename</b></a> &#149;
+<a href="myadmin.cgi?do=drop_table_warn&db=<%db%>&table=<%if table%><%table%><%endif%>"><b>Drop</b></a>
+
+<%if table%>
+<%unless table == '1'%>
+ &#149; <a href="myadmin.cgi?do=attr_table&db=<%db%>&table=<%table%>"><b>List Columns</b></a>
+ &#149; <a href="myadmin.cgi?do=add_col&db=<%db%>&table=<%table%>"><b>Add Columns</b></a>
+ &#149; <a href="myadmin.cgi?do=browse_table&db=<%db%>&table=<%table%>"><b>Browse</b></a>
+ &#149; <a href="myadmin.cgi?do=insert_table&db=<%db%>&table=<%table%>"><b>Insert</b></a>
+ &#149; <a href="myadmin.cgi?do=search_table&db=<%db%>&table=<%table%>"><b>Search</b></a>
+ &#149; <a href="myadmin.cgi?do=import_table&db=<%db%>&table=<%table%>"><b>Import</b></a>
+ &#149; <a href="myadmin.cgi?do=export_table&db=<%db%>&table=<%table%>"><b>Export</b></a>
+ &#149; <a href="myadmin.cgi?do=stats_table&db=<%db%>&table=<%table%>"><b>Stats</b></a>
+<%endif%>
+<%endif%>
+
+</td>
+</tr>

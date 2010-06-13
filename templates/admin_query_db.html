@@ -1,0 +1,77 @@
+<%-- 
+
+   admin_query_db.html : Run queries manually.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Query Database</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY onload="document.query.query.focus();">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Query Database:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+You may run queries using the textarea below. Alternatively you may choose a local dump file, a file on your server or a file on a remote server. Please only choose one of these options. If you fill in more than one option the precedence is the same as the field order.
+<br><br>
+
+<form name="query" action="myadmin.cgi" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="do" value="query_db_do">
+
+<table width="100%" cellpadding="5">
+<tr bgcolor="<%even%>">
+<td valign="top"><b>Query:</b></td>
+<td>
+<textarea name="query" rows="8" cols="50"></textarea>
+</td>
+</tr>
+
+<tr bgcolor="<%odd%>">
+<td width="25%"><b>Local Path:</b></td>
+<td><input type="file" name="lpath" size="50" class="text"></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td width="25%"><b>Server Path:</b></td>
+<td><input type="text" name="spath" size="50" class="text"></td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" value="Query Database"></td>
+</tr>
+
+</table>
+
+</form>
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

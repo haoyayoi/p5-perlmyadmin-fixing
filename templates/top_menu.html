@@ -1,0 +1,25 @@
+<%--
+   top_menu.html : This file is an include used in all templates.
+--%>
+
+<tr>
+<td valign="center" class="td_color_header" width="100%">
+<b>Databases:</b> 
+<a href="myadmin.cgi?do=show_dbs"><b>List</b></a> &#149;
+<a href="myadmin.cgi?do=create_db"><b>Create</b></a> &#149;
+
+<%if db%>
+<a href="myadmin.cgi?do=query_db&db=<%db%>"><b>Query</b></a> &#149;
+<a href="myadmin.cgi?do=dump_db&db=<%db%>"><b>Dump</b></a> &#149;
+<%endif%>
+
+<a href="myadmin.cgi?do=show_vars"><b>Variables</b></a> &#149;
+<a href="myadmin.cgi?do=show_status"><b>Status</b></a> &#149;
+
+<!--
+<a href="myadmin.cgi?do=man_users&db=mysql"><b>User Management</b></a> &#149;
+-->
+
+<a href="myadmin.cgi?do=logout"><b>Logout</b></a> 
+</td>
+</tr>

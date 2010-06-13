@@ -1,0 +1,111 @@
+<%-- 
+
+   admin_edit_row.html : Allow a row to be edited.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Edit Row</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Edit Row:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+You may modify the specified row using the form below.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<form name="create_cols" action="myadmin.cgi" method="POST">
+<input type="hidden" name="do" value="edit_row_do">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<input type="hidden" name="where" value="<%where%>">
+<input type="hidden" name="page" value="<%page%>">
+<input type="hidden" name="sf" value="<%sf%>">
+<input type="hidden" name="so" value="<%so%>">
+
+<table width="100%" align="center" cellpadding="5">
+
+<tr>
+<td width="24%" class="td_color_header"><b>Column:</b></td>
+<td width="20%" class="td_color_header"><b>Type:</b></td>
+<td width="20%" class="td_color_header"><b>Function:</b></td>
+<td width="32%" class="td_color_header"><b>Value:</b></td>
+<td width="4%" class="td_color_header"><b>Null:</b></td>
+</tr>
+
+<%loop row_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td valign="top"><%col_name%> <input type="hidden" name="<%col_name%>" value="<%col_name%>"></td>
+<td valign="top"><%type%></td>
+<td valign="top">
+<select name="<%col_name%>">
+<option></option>
+<option>ASCII</option>
+<option>CHAR</option>
+<option>SOUNDEX</option>
+<option>CURDATE</option>
+<option>CURTIME</option>
+<option>FROM_DAYS</option>
+<option>FROM_UNIXTIME</option>
+<option>NOW</option>
+<option>PASSWORD</option>
+<option>PERIOD_ADD</option>
+<option>PERIOD_DIFF</option>
+<option>TO_DAYS</option>
+<option>USER</option>
+<option>WEEKDAY</option>
+<option>RAND</option>
+</select>
+</td>
+<td><%field%></td>
+<td valign="top">
+<%if null%>
+<input type="checkbox" name="<%col_name%>" value="1" <%if isnull%>checked<%endif%>>
+<%endif%>
+</td>
+</tr>
+<%endloop%>
+
+<tr>
+<td colspan="3">&nbsp;</td>
+<td align="right" colspan="2"><input type="submit" value="Update Row"></td>
+</tr>
+</table>
+
+</form>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

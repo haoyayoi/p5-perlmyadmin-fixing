@@ -1,0 +1,53 @@
+<%-- 
+
+   admin_sql_error.html : Displays SQL errors.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - SQL Error</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Error:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<tr>
+<td height="100%" valign="top" height="75%">
+<br>
+An error occured executing an SQL query. Details of the error are listed below:<br><br><br>
+
+<%if error%>
+<%error%>
+<%else%>
+The error message is unknown. Strange.
+<%endif%>
+
+<br><br><br>
+To go back to where you were please click your browsers back button or click <a href="javascript:history.go(-1)">here</a>!
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

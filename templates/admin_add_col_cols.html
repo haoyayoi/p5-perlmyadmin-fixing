@@ -1,0 +1,168 @@
+<%-- 
+
+   admin_add_col_cols.html : This template displays the form for adding column attributes.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Column Specifications</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function check(me) {
+   if (me.options[0].text.match(/^primary|index|unique$/)) {
+       me.options[0].text = me.options[0].text.toUpperCase(); 
+	   me.options[0].selected = true;
+   }
+   else { 
+       me.options[0].text = me.options[0].text.toLowerCase();
+	   me.options[0].selected = false;
+   }
+}
+</script>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Column Specifications:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Please fill out the form below in order to add the desired column specifications for the <font color="#C00000"><b><%table%></b></font> table.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<form name="create_cols" action="myadmin.cgi" method="POST">
+<input type="hidden" name="do" value="add_col_do">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<input type="hidden" name="pos" value="<%pos%>">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="8%"><b>Field:</b></td>
+<td class="td_color_header" width="15%"><b>Type:</b></td>
+<td class="td_color_header" width="8%"><b>Length/Set:</b></td>
+<td class="td_color_header" width="26%"><b>Attributes:</b></td>
+<td class="td_color_header" width="10%"><b>Null:</b></td>
+<td class="td_color_header" width="8%"><b>Default:</b></td>
+<td class="td_color_header" width="25%"><b>Extra:</b></td>
+</tr>
+<%loop col_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td><input type="text" class="text" name="field_<%loop_iteration%>" size="12"></td>
+<td>
+<select name="type_<%loop_iteration%>">
+	<option>VARCHAR</option>
+	<option>TEXT</option>
+	<option>INT</option>
+	<option>ENUM</option>
+	<option>CHAR</option>
+	<option>SET</option>
+	<option>TINYBLOB</option>
+	<option>TINYTEXT</option>
+	<option>BLOB</option>
+	<option>MEDIUMBLOB</option>
+	<option>MEDIUMTEXT</option>
+	<option>LONGBLOB</option>
+	<option>LONGTEXT</option>
+	<option>TINYINT</option>
+	<option>SMALLINT</option>
+	<option>MEDIUMINT</option>
+	<option>BIGINT</option>
+	<option>FLOAT</option>
+	<option>DOUBLE</option>
+	<option>DECIMAL</option>
+	<option>DATE</option>
+	<option>DATETIME</option>
+	<option>TIMESTAMP</option>
+	<option>TIME</option>
+	<option>YEAR</option>
+   </select></td>
+<td><input type="text" class="text" name="set_<%loop_iteration%>" size="12"></td>
+<td>
+<select name="attributes_<%loop_iteration%>">
+	<option></option>
+	<option>BINARY</option>
+	<option>UNSIGNED</option>
+	<option>UNSIGNED ZEROFILL</option>
+   </select>
+</td>
+<td>
+<select  name="null_<%loop_iteration%>">
+	<option>NOT NULL</option>
+	<option>NULL</option>
+   </select> 
+</td>
+<td><input type="text" class="text" name="default_<%loop_iteration%>" size="12"></td>
+<td>
+<select name="extra_<%loop_iteration%>">
+	<option></option>
+	<option>AUTO_INCREMENT</option>
+   </select>
+</td>
+</tr>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+<select name="primary_<%loop_iteration%>" MULTIPLE size="1" onclick="check(this);">
+	<option>primary</option>
+   </select>
+</td>
+<td>
+<select name="index_<%loop_iteration%>" MULTIPLE size="1" onclick="check(this);">
+	<option>index</option>
+   </select>
+</td>
+<td>
+<select name="unique_<%loop_iteration%>" MULTIPLE size="1" onclick="check(this);">
+	<option>unique</option>
+   </select>
+</td>
+</tr>
+<tr>
+<td colspan="7">&nbsp;</td>
+</tr>
+<%endloop%>
+
+<tr>
+<td colspan="6">&nbsp;</td>
+<td><input type="submit" value="Create Table"></td>
+</tr>
+</table>
+
+</form>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

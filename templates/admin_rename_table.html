@@ -1,0 +1,81 @@
+<%-- 
+
+   admin_rename_table.html : This template displays the table renaming template.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Rename Table</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function validate() {
+    if (! document.rename.new_table.value.match(/^\w+$/) || ! document.rename.table.value.match(/^\w+$/)) {
+	    alert("Table names can only contain alphanumerics and underscores!"); 
+		return false;
+    }
+	return true;
+}
+</script>
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Rename Table:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+Using the form below you may rename this table.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<form name="rename" action="myadmin.cgi" method="POST" onsubmit="return validate();">
+<input type="hidden" name="db" value="<%db%>">
+
+<%if table%>
+<input type="hidden" name="table" value="<%table%>">
+<%endif%>
+
+<input type="hidden" name="do" value="rename_table_do">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="100%"><b>Rename Table:</b></td>
+</tr>
+
+<tr bgcolor="<%even%>">
+<td>Rename table <%if table%><font color="#C00000"><b><%table%></b></font><%else%><input type="text" name="table" class="text" size="30"><%endif%> to <input type="text" name="new_table" class="text" size="30"> &nbsp; <input type="submit" value="Rename"></td>
+</tr>
+</table>
+
+</form>
+
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

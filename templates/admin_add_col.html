@@ -1,0 +1,96 @@
+<%-- 
+
+   admin_add_col.html : Allow new columns to be added to a table.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - All Columns</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+<script language="javascript" type="text/javascript">
+function verify() {
+    if (! document.cols.cols.value.match(/^\d+$/)) {
+	    alert("The number of new columns must be a digit.");
+		return false;
+	}
+}
+</script>
+
+</HEAD>
+
+<BODY onload="document.cols.cols.focus();">
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Column Addition:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<%include top_table_menu.html%>
+
+<tr>
+<td valign="top"><br>
+You may add columns to the <font color="#C00000"><b><%table%></b></font> table by filling in the form below. You will then be taken to a page where you may enter new column attributes.
+</td>
+</tr>
+
+<!-- Creation Form -->
+<tr>
+<td align="center" valign="top" height="75%">
+
+<form name="cols" action="myadmin.cgi" method="POST" onsubmit="return verify();">
+<input type="hidden" name="do" value="add_col_attr">
+<input type="hidden" name="db" value="<%db%>">
+<input type="hidden" name="table" value="<%table%>">
+<table width="50%" cellpadding="5">
+<tr>
+<td colspan="2" class="td_color_header"><b>Add Columns:</b></td>
+</tr>
+<tr>
+<td width="25%"><b>Number:</b></td>
+<td><input type="text" size="20" name="cols" class="text" maxlength="2" value="1"></td>
+</tr>
+<tr>
+<td><b>Position:</b></td>
+<td>
+<select name="pos">
+<option value="FIRST">Beginning of table</option>
+<option value="">End of table</option>
+<%loop pos_loop%>
+<option value="AFTER <%pos%>">After <%pos%></option>
+<%endloop%>
+</select>
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" class="button" value="Generate"></td>
+</tr>
+</table>
+
+</form>
+<br>
+<%if error%>
+<font color="#C00000"><b><%error%></b></font>
+<%endif%>
+
+</td>
+</tr>
+<!-- End Creation Form -->
+
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,61 @@
+<%-- 
+
+   admin_status.html : This template shows detailed mysql server status variables.
+   
+--%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> <%script%> - Server Status</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Keywords" CONTENT="MyAdmin, MySQL, Admin, Management">
+<META NAME="Description" CONTENT="MyAdmin is a web based interface to mysql similar to phpmyadmin and mysqlman.">
+
+<%include style.css%>
+
+</HEAD>
+
+<BODY>
+
+<table align="center" class="main_table" cellspacing="10px">
+<tr>
+<td valign="middle" class="td_header" width="100%"><b><%script%> Status List:</b></td>
+</tr>
+
+<%include top_menu.html%>
+
+<tr>
+<td valign="top">
+<br>
+The current status of the mysql server is show in detail below.
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign="top" align="center" height="75%">
+
+<table width="100%" align="center" cellpadding="5">
+<tr>
+<td class="td_color_header" width="60%"><b>Variable Name:</b></td>
+<td class="td_color_header"><b>Variable Value:</b></td>
+</tr>
+<%loop st_loop%>
+<tr bgcolor="<%if loop_iteration % '2'%><%even%><%else%><%odd%><%endif%>">
+<td valign="top"><%status%></td>
+<td><%value%></td>
+</tr>
+<%endloop%>
+</table>
+<br><br>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<%include footer.html%>
+<!-- End Footer -->
+
+</BODY>
+</HTML>
+
