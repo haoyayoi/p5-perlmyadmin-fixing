@@ -14,8 +14,10 @@
 
   use strict;
   use warnings;
+  use Cwd;
+  my $cwd = getcwd();
   BEGIN{ unshift @INC, '/Users/haoyayoi/perl5/lib/perl5'; }
-  BEGIN{ unshift @INC, '/Users/haoyayoi/Sites/perlmyadmin/lib'; }
+  use lib qw($cwd . '/lib');
   use FindBin::libs;
   use MyAdmin::Objects;
   use MyAdmin::Functions;
