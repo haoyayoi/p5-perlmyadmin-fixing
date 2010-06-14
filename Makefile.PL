@@ -2,7 +2,9 @@ use inc::Module::Install;
 name 'PerlMyAdmin';
 all_from 'lib/MyAdmin.pm';
 
-# requires '';
+requires 'Cwd';
+requires 'FindBin::libs';
+requires 'Exporter';
 
 tests 't/*.t';
 author_tests 'xt';

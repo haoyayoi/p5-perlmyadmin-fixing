@@ -15,6 +15,7 @@
 #==========================================================
 
   use strict;
+  use warnings;
   use vars qw/$CFG @ISA @EXPORT @EXPORT_OK/;
   @EXPORT_OK = ();
   @EXPORT    = qw/$CFG/;
